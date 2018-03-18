@@ -20,26 +20,67 @@ CREATE TABLE WritingGroups (
 
 --/*Table structure for Publishers*/
 
+
+CREATE TABLE WritingGroups (
+
+    groupName varchar(50) NOT NULL,
+
+    headWriter varchar(50) NOT NULL,
+
+    yearFormed int NOT NULL,
+
+    subject varchar(50) NOT NULL,
+
+    CONSTRAINT writingGroupPK PRIMARY KEY (groupName)
+
+) ;
+
+
+
+--/*Table structure for Publishers*/
+
+
+
 CREATE TABLE Publishers (
+
     publisherName varchar(50) NOT NULL,
+
     publisherAddress varchar(50) NOT NULL,
+
     publisherPhone varchar(50) NOT NULL,
+
     publisherEmail varchar(50) NOT NULL,
+
     CONSTRAINT pubPK PRIMARY KEY (publisherName)
+
 );
+
+
 
 --/*Table structure for books*/
 
+
+
 CREATE TABLE Books (
-    bookTitle varchar(50) NOT NULL,
-    publisherName varchar(50) NOT NULL,
-    yearPublished varchar(50) NOT NULL,
+
     groupName varchar(50) NOT NULL,
-    numberPages varchar(50) DEFAULT NULL,
+
+    bookTitle varchar(50) NOT NULL,
+
+    publisherName varchar(50) NOT NULL,
+
+    yearPublished varchar(4) NOT NULL,
+
+    numberPages int DEFAULT NULL,
+
     CONSTRAINT booksGroupNameFK FOREIGN KEY (groupName) REFERENCES WritingGroups (groupName),
+
     CONSTRAINT booksPublisherNameFK FOREIGN KEY (publisherName) REFERENCES Publishers (publisherName),
+
     CONSTRAINT booksPK PRIMARY KEY (groupName, bookTitle)
-    
+
+);
+
     INSERT INTO WritingGroups
     VALUES('Happy Bookers', 'Alicia Smith', 2010, 'Fiction'),
           ('Readers Dozen', 'Bob Anderson', 2008, 'Horror'),
@@ -64,4 +105,3 @@ CREATE TABLE Books (
 select  * from WritingGroups
 NATURAL JOIN Publishers
 NATURAL JOIN Books;
-);
