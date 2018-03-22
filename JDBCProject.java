@@ -6,35 +6,23 @@ import java.util.Scanner;
 public class JDBCProject {
     
     public static void main(String[] args) {
-        //Luca, pass
-        try(Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/mOpkinsProj", "Luca", "pass");){
-            //databaseFunctions dbFuncs = new databaseFunctions(con);  
-            Class.forName("org.apache.derby.jdbc.ClientDriver"); //2nd step
-            Statement st = con.createStatement();
-            /*
-                You will have to change the username and pass
-                String sqlStr = "Select * from books";
-                ResultSet rs = st.executeQuery(sqlStr);
-                rs.next();
-                String sname = rs.getString(2);
-                System.out.println(sname);
-            */
+        //Attempt to connect to the database 
+        try(Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/mOpkinsProj", "Luca", "pass");){  
+            Class.forName("org.apache.derby.jdbc.ClientDriver"); //get the database class type
+            con.setAutoCommit(true); 
+            //Create a statement with the connection. Only use one instance throughout the whole program. It is passed to the menus object
+            //Where it is saved as a private member
+            Statement st = con.createStatement(); 
+
+            //Members object with statement provided
             menus menus = new menus(st);
             menus.mainMenu();
 
-            con.close();
-        }
+            con.close(); //close the connection
+        }//If there was an error
         catch(SQLException | ClassNotFoundException e){
             System.out.println(e);
         }
     }
-    /*menuClass
-    String promptMessage
-    String[] options
-    Menu parentMenu;
-    Menu[] childrenMenus
-    
-    
-    */
 
 }
